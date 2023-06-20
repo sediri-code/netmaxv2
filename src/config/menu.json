@@ -36,11 +36,8 @@
         {
           "name": "Search",
           "url": "/search"
-        },
-        {
-          "name": "404 Page",
-          "url": "/404"
         }
+       
       ]
     }
   ],
