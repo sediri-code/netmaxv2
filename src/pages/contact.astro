@@ -28,7 +28,7 @@ const { title, description, meta_title, image } = entry.data;
               <input
                 id="name"
                 class="form-input"
-                placeholder=""
+                placeholder="Saisir votre nom et prénom"
                 type="text"
               />
             </div>
@@ -39,45 +39,79 @@ const { title, description, meta_title, image } = entry.data;
               <input
                 id="phone"
                 class="form-input"
-                placeholder=""
+                placeholder="Saisir votre numéro de téléphone"
                 type="tel"
               />
             </div>
+
             <div class="mb-6">
               <label for="instagram" class="form-label">
-                Lien Instagram <span class="text-red-500">*</span>
+                Lien Instagram<span class="text-red-500">*</span>
               </label>
               <input
                 id="instagram"
                 class="form-input"
-                placeholder=""
+                placeholder="Saisir votre lien Instagram (Il doit être publique)" 
                 type="text"
               />
             </div>
+
+
             <div class="mb-6">
               <label for="CODE" class="form-label">
-                Code PROMO <span class="text-red-500">*</span>
+                Code PROMO
               </label>
               <input
                 id="CODE"
                 class="form-input"
-                placeholder=""
+                placeholder="Saisir un Code PROMO"
                 type="text"
               />
             </div>
+            
             <div class="mb-6">
               <label for="followers" class="form-label">
                 Nombre d'abonnés <span class="text-red-500">*</span>
               </label>
-              <select id="followers" class="form-select">
-                <option value="1000">1000</option>
-                <option value="2000">2000</option>
-                <option value="3000">3000</option>
-                <option value="5000">5000</option>
-                <option value="10000">10000</option>
-              </select>
+              <input
+                id="followers"
+                class="form-input"
+                placeholder="Saisir le nombre d'abonnés"
+                type="number"
+                min="1000"
+                oninput="validateFollowersInput()"
+              />
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            
+            
+            
+            
+            <div class="mb-6">
+              <label for="price" class="form-label">
+                Prix
+              </label>
+              <input
+                id="price"
+                class="form-input"
+                placeholder="Montant à payer"
+                type="text"
+                readonly
+              />
+            </div>
+            
+            <script>
+              const followersInput = document.getElementById('followers');
+              const priceInput = document.getElementById('price');
+            
+              followersInput.addEventListener('input', function() {
+                const followersCount = parseInt(followersInput.value);
+                const price = followersCount * 0.004;
+                priceInput.value = price.toFixed(3) + ' TND';
+              });
+            </script>
+
+            
+            <button type="submit" class="btn btn-primary">Passez votre commande</button>
           </form>
         </div>
       </div>
