@@ -8,8 +8,9 @@ import { defineConfig } from "astro/config";
 import remarkCollapse from "remark-collapse";
 import remarkToc from "remark-toc";
 import config from "./src/config/config.json";
-
 import node from "@astrojs/node";
+
+import netlify from "@astrojs/netlify/functions";
 
 // https://astro.build/config
 export default defineConfig({
@@ -36,7 +37,5 @@ export default defineConfig({
     extendDefaultPlugins: true
   },
   output: "server",
-  adapter: node({
-    mode: "standalone"
-  })
+  adapter: netlify()
 });
