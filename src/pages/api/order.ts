@@ -18,7 +18,8 @@ export const post: APIRoute = async ({request, redirect, url}) => {
     const data = await createOrder(order);
     const link = request.headers.get("referer");
     console.log("link", link);
-    return redirect(link, 307)
+    //redirect back to the page
+    return redirect(link, 302);
   }
   catch (error) {
     console.log("error", error);
