@@ -15,7 +15,7 @@ export const post: APIRoute = async ({request, redirect}) => {
   }
   try {
     const data = await createOrder(order);
-    return redirect('/contact', 307)
+    return redirect('/contact/', 307)
   }
   catch (error) {
     console.log("error", error);
