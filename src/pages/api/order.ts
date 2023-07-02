@@ -12,7 +12,8 @@ export const post: APIRoute = async ({request, redirect, url}) => {
     account_link: data.get("account_link"),
     quantity: data.get("quantity"),
     price: data.get("price")?.toString().split(" ")[0],
-    status:"unpaid"
+    status:"unpaid",
+    service: request.headers.get("referer")?.match('instagram')? 4113 : null
   }
   try {
     const data = await createOrder(order);
