@@ -1,10 +1,11 @@
 import { createOrder } from "../../lib/supa";
 import type { APIRoute} from "astro";
 
-export const post: APIRoute = async ({request, redirect}) => {
+export const post: APIRoute = async ({request, redirect, url}) => {
   console.log("req", request);
   const data = await request.formData();
   console.log("data", data);
+  console.log("url", url)
   const order = {
     name: data.get("name"),
     phone: data.get("phone"),
@@ -15,7 +16,9 @@ export const post: APIRoute = async ({request, redirect}) => {
   }
   try {
     const data = await createOrder(order);
-    return redirect('/contact/', 307)
+    const link = url.origin+"/contact"
+    console.log("link", link);
+    return redirect(link, 307)
   }
   catch (error) {
     console.log("error", error);
