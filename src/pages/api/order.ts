@@ -16,7 +16,7 @@ export const post: APIRoute = async ({request, redirect, url}) => {
   }
   try {
     const data = await createOrder(order);
-    const link = url.origin+"/contact"
+    const link = request.headers.get("referer");
     console.log("link", link);
     return redirect(link, 307)
   }
