@@ -3,10 +3,10 @@ import type { APIRoute } from "astro";
 import services from "@/config/services.json"
 
 export const post: APIRoute = async ({request, redirect, url}) => {
-  console.log("req", request);
+  // console.log("req", request);
   const data = await request.formData();
-  console.log("data", data);
-  console.log("url", url)
+  // console.log("data", data);
+  // console.log("url", url)
 
   console.log("service", services[request.headers.get("referer").split("/").at(-1)] || null)
   const order = {
@@ -16,9 +16,10 @@ export const post: APIRoute = async ({request, redirect, url}) => {
     quantity: data.get("quantity"),
     price: data.get("price")?.toString().split(" ")[0],
     status:"unpaid",
-    service: services[url.pathname.split("/").at(-1)] || null
+    service: services[request.headers.get("referer").split("/").at(-1)] || null
   }
   try {
+    console.log("order", order);
     const data = await createOrder(order);
     const link = request.headers.get("referer");
     console.log("link", link);
