@@ -7,7 +7,8 @@ export const post: APIRoute = async ({request, redirect, url}) => {
   const data = await request.formData();
   console.log("data", data);
   console.log("url", url)
-  console.log("service", services[request.headers.get("referer").split("/")[3]] || null)
+
+  console.log("service", services[request.headers.get("referer").split("/").at(-1)] || null)
   const order = {
     name: data.get("name"),
     phone: data.get("phone"),
@@ -15,7 +16,7 @@ export const post: APIRoute = async ({request, redirect, url}) => {
     quantity: data.get("quantity"),
     price: data.get("price")?.toString().split(" ")[0],
     status:"unpaid",
-    service: services[url.pathname.split("/")[3]] || null
+    service: services[url.pathname.split("/").at(-1)] || null
   }
   try {
     const data = await createOrder(order);
