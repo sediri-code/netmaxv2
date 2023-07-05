@@ -1,15 +1,22 @@
 ---
-export const prerender = true;
 import config from "@/config/config.json";
 import Base from "@/layouts/Base.astro";
 import PageHeader from "@/partials/PageHeader.astro";
 import { getEntryBySlug } from "astro:content";
 
-import { createOrder } from "../lib/supa";
+import services from "@/config/services.json";
+console.log(services);
 
 const entry = await getEntryBySlug("pages", "contact");
 const { contact_form_action }: { contact_form_action: string } = config.params;
 const { title, description, meta_title, image } = entry.data;
+
+const { service } = Astro.params;
+
+// if service is not one of services return 404
+if (!Object.keys(services).includes(service)) {
+  return Astro.redirect("/404");
+}
 ---
 
 <Base
