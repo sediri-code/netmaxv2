@@ -1,11 +1,9 @@
 {
-  "main": [
-    {
-      "name": "Abonnés Instagram",
-      "url": "/contact"
-    }
-  ],
-  "footer": [
-   
-  ]
+    "main": [
+        {
+            "name": "Abonnés Instagram",
+            "url": "/instagram"
+        }
+    ],
+    "footer": []
 }

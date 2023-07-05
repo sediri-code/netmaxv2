@@ -4,9 +4,19 @@ import Base from "@/layouts/Base.astro";
 import PageHeader from "@/partials/PageHeader.astro";
 import { getEntryBySlug } from "astro:content";
 
+import services from "@/config/services.json";
+console.log(services);
+
 const entry = await getEntryBySlug("pages", "contact");
 const { contact_form_action }: { contact_form_action: string } = config.params;
 const { title, description, meta_title, image } = entry.data;
+
+const { service } = Astro.params;
+
+// if service is not one of services return 404
+if (!Object.keys(services).includes(service)) {
+  return Astro.redirect("/404");
+}
 ---
 
 <Base
@@ -20,13 +30,14 @@ const { title, description, meta_title, image } = entry.data;
     <div class="container">
       <div class="row">
         <div class="mx-auto md:col-10 lg:col-6">
-          <form action={contact_form_action} method="POST">
+          <form action="/api/order" method="POST">
             <div class="mb-6">
               <label for="name" class="form-label">
                 Nom et Prénom <span class="text-red-500">*</span>
               </label>
               <input
                 id="name"
+                name="name"
                 class="form-input"
                 placeholder="Saisir votre nom"
                 type="text"
@@ -39,6 +50,7 @@ const { title, description, meta_title, image } = entry.data;
               <input
                 id="phone"
                 class="form-input"
+                name="phone"
                 placeholder="Saisir votre numéro de téléphone"
                 type="tel"
               />
@@ -51,24 +63,23 @@ const { title, description, meta_title, image } = entry.data;
               <input
                 id="instagram"
                 class="form-input"
-                placeholder="Saisir votre lien Instagram (Il doit être publique)" 
+                name="account_link"
+                placeholder="Saisir votre lien Instagram (Il doit être publique)"
                 type="text"
               />
             </div>
 
-
             <div class="mb-6">
-              <label for="CODE" class="form-label">
-                Code PROMO
-              </label>
+              <label for="CODE" class="form-label"> Code PROMO</label>
               <input
                 id="CODE"
                 class="form-input"
+                name="promo_code"
                 placeholder="Saisir un Code PROMO"
                 type="text"
               />
             </div>
-            
+
             <div class="mb-6">
               <label for="followers" class="form-label">
                 Nombre d'abonnés <span class="text-red-500">*</span>
@@ -79,39 +90,36 @@ const { title, description, meta_title, image } = entry.data;
                 placeholder="Saisir le nombre d'abonnés"
                 type="number"
                 min="1000"
-                oninput="validateFollowersInput()"
+                name="quantity"
               />
             </div>
-            
-            
-            
-            
+
             <div class="mb-6">
-              <label for="price" class="form-label">
-                Prix
-              </label>
+              <label for="price" class="form-label"> Prix</label>
               <input
                 id="price"
                 class="form-input"
                 placeholder="Montant à payer"
                 type="text"
                 readonly
+                name="price"
               />
             </div>
-            
+
             <script>
-              const followersInput = document.getElementById('followers');
-              const priceInput = document.getElementById('price');
-            
-              followersInput.addEventListener('input', function() {
+              const followersInput = document.getElementById("followers");
+              const priceInput = document.getElementById("price");
+
+              followersInput.addEventListener("input", function () {
                 const followersCount = parseInt(followersInput.value);
                 const price = followersCount * 0.004;
-                priceInput.value = price.toFixed(3) + ' TND';
+                priceInput.value = price.toFixed(3) + " TND";
               });
             </script>
 
-            
-            <button type="submit" class="btn btn-primary">Passez votre commande</button>
+            <button type="submit" class="btn btn-primary"
+              >Passez votre commande</button
+            >
           </form>
         </div>
       </div>
