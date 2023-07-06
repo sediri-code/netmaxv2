@@ -115,11 +115,16 @@ if (!Object.keys(services).includes(service)) {
                 const price = followersCount * 0.004;
                 priceInput.value = price.toFixed(3) + " TND";
               });
+              const orderButton = document.getElementById("orderButton");
+  
+              orderButton.addEventListener("click", function () {
+              window.location.href = "https://konnect.network/gateway/me/Netmax";
+              });
             </script>
 
-            <button type="submit" class="btn btn-primary"
-              >Passez votre commande</button
-            >
+            <button id="orderButton" type="submit" class="btn btn-primary">Passez votre commande</button>
+
+
           </form>
         </div>
       </div>
