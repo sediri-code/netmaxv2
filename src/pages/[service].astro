@@ -105,7 +105,7 @@ if (!Object.keys(services).includes(service)) {
                 name="price"
               />
             </div>
-
+            
             <script>
               const followersInput = document.getElementById("followers");
               const priceInput = document.getElementById("price");
@@ -115,12 +115,38 @@ if (!Object.keys(services).includes(service)) {
                 const price = followersCount * 0.004;
                 priceInput.value = price.toFixed(3) + " TND";
               });
-              const orderButton = document.getElementById("orderButton");
+               const orderButton = document.getElementById("orderButton");
+               const form = document.querySelector('form'); // Select the form element
   
-             
-            </script>
+             orderButton.addEventListener("click", function (event) {
+             event.preventDefault(); // Prevent the default form submission behavior
+    
+    // Retrieve the form data
+             const formData = new FormData(form);
+    
+    // Perform a fetch request to send the form data to the server
+             fetch("/api/order", {
+             method: "POST",
+             body: formData
+             })
+            .then(response => {
+      // Handle the response as needed
+          if (response.ok) {
+        // Redirect to the desired link
+          window.location.href = "https://konnect.network/gateway/pay?payment_ref=64a6dacb5e8be4895210a26e";
+          } else {
+        // Handle error case
+            console.log("Error:", response.status);
+             }
+            })
+            .catch(error => {
+            console.log("Error:", error);
+            });
+            });
 
-            <button id="orderButton" type="submit" class="btn btn-primary">Passez votre commande</button>
+            </script>
+           <button id="orderButton" type="submit" class="btn btn-primary">Passez votre commande</button>
+            
 
 
           </form>
